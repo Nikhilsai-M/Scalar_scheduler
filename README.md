@@ -6,7 +6,7 @@ A full-stack scheduling platform inspired by Calendly's core UI and UX.
 
 - **Frontend:** Next.js 16 (App Router), React 19
 - **Backend:** Next.js Server Actions
-- **Database:** Prisma ORM with SQLite for local development, easily swappable to PostgreSQL
+- **Database:** Prisma ORM with PostgreSQL
 - **Styling:** Vanilla CSS with CSS Modules
 - **Icons:** `lucide-react`
 - **Email:** SMTP via `nodemailer`
@@ -34,13 +34,14 @@ A full-stack scheduling platform inspired by Calendly's core UI and UX.
 
 - Node.js 18+
 - NPM
+- PostgreSQL (running locally on port 5432)
 
 ### 2. Environment Variables
 
 Create a `.env` file in the root directory:
 
 ```env
-DATABASE_URL="file:./dev.db"
+DATABASE_URL="postgresql://postgres:your-password@localhost:5432/scalar_scheduler"
 SMTP_HOST="smtp.gmail.com"
 SMTP_PORT="587"
 SMTP_SECURE="false"
@@ -53,7 +54,7 @@ MAIL_TO="your-email@gmail.com"
 Notes:
 - `MAIL_TO` is optional. If omitted, host/admin notifications go to the host user email stored in the database.
 - For Gmail, use a Google App Password instead of your normal account password.
-- To use PostgreSQL later, change the Prisma datasource provider and replace `DATABASE_URL`.
+- Ensure PostgreSQL is installed and running locally, and the database `scalar_scheduler` is created before running migrations.
 
 ### 3. Install Dependencies
 
@@ -64,7 +65,7 @@ npm install
 ### 4. Database Initialization
 
 ```bash
-npx prisma db push
+npx prisma migrate dev
 npx prisma generate
 node prisma/seed.js
 ```
@@ -90,4 +91,4 @@ Navigate to `http://localhost:3000`.
 
 - A default user is treated as logged in for the admin side.
 - SMTP credentials are provided through environment variables.
-- SQLite is used locally for easy setup; PostgreSQL is the recommended production target.
+- PostgreSQL is used as the primary database for development and production readiness.
