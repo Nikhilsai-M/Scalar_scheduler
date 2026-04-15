@@ -2,6 +2,15 @@
 
 A full-stack scheduling platform inspired by Calendly's core UI and UX.
 
+## Live Demo
+
+🔗 https://scalar-scheduler.vercel.app/
+
+## Links
+
+- 🌐 Live App: https://scalar-scheduler.vercel.app/
+- 💻 Repository: https://github.com/Nikhilsai-M/Scalar_scheduler
+
 ## Tech Stack
 
 - **Frontend:** Next.js 16 (App Router), React 19
@@ -78,7 +87,7 @@ node prisma/seed.js
 npm run dev
 ```
 
-Navigate to `http://localhost:3000`.
+Navigate to http://localhost:3000 (for local development).
 
 ## Email Flow
 
