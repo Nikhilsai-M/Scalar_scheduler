@@ -4,8 +4,8 @@ A full-stack scheduling platform inspired by Calendly’s core product flow and 
 
 ## Links
 
-- Live app: `https://scalar-scheduler.vercel.app/`
-- Repository: `https://github.com/Nikhilsai-M/Scalar_scheduler`
+- 🌐 Live App: https://scalar-scheduler.vercel.app/
+- 💻 Repository: https://github.com/Nikhilsai-M/Scalar_schedule
 
 ## Tech Stack
 
