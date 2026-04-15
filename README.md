@@ -34,14 +34,15 @@ A full-stack scheduling platform inspired by Calendly's core UI and UX.
 
 - Node.js 18+
 - NPM
-- PostgreSQL (running locally on port 5432)
+- A PostgreSQL database (local or hosted, such as Neon)
 
 ### 2. Environment Variables
 
 Create a `.env` file in the root directory:
 
 ```env
-DATABASE_URL="postgresql://postgres:your-password@localhost:5432/scalar_scheduler"
+DATABASE_URL="postgresql://<user>:<password>@<pooled-host>/neondb?sslmode=require"
+DIRECT_URL="postgresql://<user>:<password>@<direct-host>/neondb?sslmode=require"
 SMTP_HOST="smtp.gmail.com"
 SMTP_PORT="587"
 SMTP_SECURE="false"
@@ -52,9 +53,10 @@ MAIL_TO="your-email@gmail.com"
 ```
 
 Notes:
+- For Neon, use the pooled connection string for `DATABASE_URL` and the non-pooled (direct) connection string for `DIRECT_URL`.
 - `MAIL_TO` is optional. If omitted, host/admin notifications go to the host user email stored in the database.
 - For Gmail, use a Google App Password instead of your normal account password.
-- Ensure PostgreSQL is installed and running locally, and the database `scalar_scheduler` is created before running migrations.
+- Ensure your database is reachable from your machine before running migrations.
 
 ### 3. Install Dependencies
 
