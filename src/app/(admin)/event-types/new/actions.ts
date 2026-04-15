@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { isMeetingLocationType, requiresMeetingLocationValue } from "@/lib/meeting-location";
 import { revalidatePath } from "next/cache";
 
 function normalizeSlug(value: string) {
@@ -18,6 +19,8 @@ export async function createEventType(data: {
   description: string;
   duration: number;
   scheduleId: string;
+  meetingLocationType: string;
+  meetingLocationValue: string;
   bufferBeforeMinutes: number;
   bufferAfterMinutes: number;
   inviteeQuestions: {
@@ -44,6 +47,14 @@ export async function createEventType(data: {
     throw new Error("Buffer times cannot be negative.");
   }
 
+  if (!isMeetingLocationType(data.meetingLocationType)) {
+    throw new Error("Please choose a valid meeting location.");
+  }
+
+  if (requiresMeetingLocationValue(data.meetingLocationType) && !data.meetingLocationValue.trim()) {
+    throw new Error("Please add meeting location details for this location type.");
+  }
+
   const defaultUser = await prisma.user.findFirst();
   if (!defaultUser) throw new Error("No default user found");
 
@@ -66,6 +77,8 @@ export async function createEventType(data: {
       duration: data.duration,
       userId: defaultUser.id,
       scheduleId: schedule.id,
+      meetingLocationType: data.meetingLocationType,
+      meetingLocationValue: data.meetingLocationValue.trim() || null,
       isActive: true,
       bufferBeforeMinutes: data.bufferBeforeMinutes,
       bufferAfterMinutes: data.bufferAfterMinutes,

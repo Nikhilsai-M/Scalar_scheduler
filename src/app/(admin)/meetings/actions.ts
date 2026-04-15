@@ -1,6 +1,7 @@
 "use server";
 
 import { sendCancellationEmails } from "@/lib/email";
+import { getMeetingLocationSummary } from "@/lib/meeting-location";
 import { prisma } from "@/lib/prisma";
 import { MEETING_STATUS } from "@/lib/meeting-status";
 import { revalidatePath } from "next/cache";
@@ -37,6 +38,10 @@ export async function cancelMeeting(id: string) {
         meeting.scheduleTimeZone ??
         meeting.eventType.schedule?.timeZone ??
         meeting.eventType.user.timeZone,
+      location: getMeetingLocationSummary(
+        meeting.meetingLocationTypeSnapshot ?? meeting.eventType.meetingLocationType,
+        meeting.meetingLocationValueSnapshot ?? meeting.eventType.meetingLocationValue,
+      ),
     });
   } catch (error) {
     warning =
@@ -47,5 +52,6 @@ export async function cancelMeeting(id: string) {
 
   revalidatePath("/meetings");
   revalidatePath("/dashboard");
+  revalidatePath(`/${meeting.eventType.urlSlug}`);
   return { success: true, warning };
 }

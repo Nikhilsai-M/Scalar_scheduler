@@ -3,18 +3,15 @@
 }
 
 .header {
-  position: sticky;
-  top: 0;
-  z-index: 30;
-  background: rgba(255, 255, 255, 0.9);
-  border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(219, 228, 238, 0.85);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
 }
 
 .headerInner {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 1rem 1.25rem;
+  padding: 0.95rem 1.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -30,14 +27,15 @@
 .brandMark {
   width: 34px;
   height: 34px;
-  border-radius: 0.9rem;
+  border-radius: 0.95rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--primary), #3b82f6);
+  background: linear-gradient(180deg, #1677ff 0%, var(--primary) 100%);
   color: white;
   font-weight: 700;
   font-size: 0.95rem;
+  box-shadow: 0 10px 22px rgba(0, 107, 255, 0.12);
 }
 
 .brandText {
@@ -63,61 +61,63 @@
   color: var(--primary);
   border: 1px solid var(--border-strong);
   background: white;
-  border-radius: 999px;
-  padding: 0.6rem 0.85rem;
+  border-radius: 0.9rem;
+  padding: 0.68rem 0.92rem;
   font-size: 0.85rem;
   font-weight: 600;
+  box-shadow: var(--shadow-sm);
 }
 
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 64px);
+  min-height: calc(100vh - 68px);
   background-color: transparent;
-  padding: 2rem 1.25rem;
+  padding: 2.4rem 1.25rem;
 }
 
 .card {
   display: flex;
   background: var(--surface);
-  border-radius: 28px;
-  box-shadow: var(--shadow-lg);
+  border-radius: 1.6rem;
+  box-shadow: var(--shadow-md);
   overflow: hidden;
   max-width: 1180px;
   width: 100%;
   border: 1px solid var(--border);
-  min-height: 660px;
+  min-height: 680px;
 }
 
 .leftPanel {
   width: 34%;
-  padding: 2.25rem;
+  padding: 2.4rem 2.1rem;
   border-right: 1px solid var(--border);
   background:
-    radial-gradient(circle at top right, rgba(0, 107, 255, 0.12), transparent 34%),
-    linear-gradient(180deg, #fbfdff 0%, #f5faff 100%);
+    radial-gradient(circle at top right, rgba(0, 107, 255, 0.08), transparent 32%),
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
 }
 
 .rightPanel {
   flex: 1;
-  padding: 2rem;
+  padding: 2.1rem;
   display: flex;
   flex-direction: column;
+  background: #ffffff;
 }
 
 .hostName {
   color: var(--text-muted);
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
 }
 
 .eventTitle {
-  font-size: clamp(1.8rem, 2.8vw, 2.35rem);
+  font-size: clamp(1.9rem, 2.8vw, 2.5rem);
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 1.1rem;
   color: var(--foreground);
-  letter-spacing: -0.04em;
+  letter-spacing: -0.055em;
 }
 
 .badgeRow {
@@ -150,7 +150,7 @@
 .description {
   margin-top: 1.5rem;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.7;
   padding-top: 1.25rem;
   border-top: 1px solid var(--border);
 }

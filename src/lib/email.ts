@@ -9,6 +9,7 @@ type MeetingEmailDetails = {
   startTime: Date;
   endTime: Date;
   timeZone: string;
+  location: string;
 };
 
 function getRequiredEnv(name: string) {
@@ -83,25 +84,27 @@ export async function sendBookingEmails(details: MeetingEmailDetails) {
     sendEmail({
       to: details.inviteeEmail,
       subject: `Booking confirmed: ${details.eventTitle}`,
-      text: `Hi ${details.inviteeName}, your meeting "${details.eventTitle}" with ${details.hostName} is confirmed for ${when}.`,
+      text: `Hi ${details.inviteeName}, your meeting "${details.eventTitle}" with ${details.hostName} is confirmed for ${when}. Location: ${details.location}.`,
       html: `
         <div style="font-family:Segoe UI,Arial,sans-serif;line-height:1.6;color:#102a43">
           <h2 style="margin-bottom:12px;">Your meeting is confirmed</h2>
           <p>Hi ${details.inviteeName},</p>
           <p>Your meeting <strong>${details.eventTitle}</strong> with <strong>${details.hostName}</strong> is confirmed.</p>
           <p><strong>When:</strong> ${when}</p>
+          <p><strong>Where:</strong> ${details.location}</p>
         </div>
       `,
     }),
     sendEmail({
       to: getHostRecipients(details.hostEmail),
       subject: `New booking: ${details.eventTitle}`,
-      text: `${details.inviteeName} (${details.inviteeEmail}) booked "${details.eventTitle}" for ${when}.`,
+      text: `${details.inviteeName} (${details.inviteeEmail}) booked "${details.eventTitle}" for ${when}. Location: ${details.location}.`,
       html: `
         <div style="font-family:Segoe UI,Arial,sans-serif;line-height:1.6;color:#102a43">
           <h2 style="margin-bottom:12px;">New booking received</h2>
           <p><strong>${details.inviteeName}</strong> (${details.inviteeEmail}) booked <strong>${details.eventTitle}</strong>.</p>
           <p><strong>When:</strong> ${when}</p>
+          <p><strong>Where:</strong> ${details.location}</p>
         </div>
       `,
     }),
@@ -119,24 +122,26 @@ export async function sendCancellationEmails(details: MeetingEmailDetails) {
     sendEmail({
       to: details.inviteeEmail,
       subject: `Meeting canceled: ${details.eventTitle}`,
-      text: `Hi ${details.inviteeName}, your meeting "${details.eventTitle}" with ${details.hostName} scheduled for ${when} has been canceled.`,
+      text: `Hi ${details.inviteeName}, your meeting "${details.eventTitle}" with ${details.hostName} scheduled for ${when} has been canceled. Location: ${details.location}.`,
       html: `
         <div style="font-family:Segoe UI,Arial,sans-serif;line-height:1.6;color:#102a43">
           <h2 style="margin-bottom:12px;">Meeting canceled</h2>
           <p>Hi ${details.inviteeName},</p>
           <p>Your meeting <strong>${details.eventTitle}</strong> with <strong>${details.hostName}</strong> scheduled for ${when} has been canceled.</p>
+          <p><strong>Where:</strong> ${details.location}</p>
         </div>
       `,
     }),
     sendEmail({
       to: getHostRecipients(details.hostEmail),
       subject: `Canceled booking: ${details.eventTitle}`,
-      text: `${details.inviteeName} (${details.inviteeEmail}) no longer has "${details.eventTitle}" booked for ${when}.`,
+      text: `${details.inviteeName} (${details.inviteeEmail}) no longer has "${details.eventTitle}" booked for ${when}. Location: ${details.location}.`,
       html: `
         <div style="font-family:Segoe UI,Arial,sans-serif;line-height:1.6;color:#102a43">
           <h2 style="margin-bottom:12px;">Booking canceled</h2>
           <p><strong>${details.inviteeName}</strong> (${details.inviteeEmail}) is no longer scheduled for <strong>${details.eventTitle}</strong>.</p>
           <p><strong>When:</strong> ${when}</p>
+          <p><strong>Where:</strong> ${details.location}</p>
         </div>
       `,
     }),

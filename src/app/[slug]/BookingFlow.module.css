@@ -1,57 +1,58 @@
 .calendarLayout {
-  display: flex;
-  gap: 1.75rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 1.5rem;
   flex: 1;
 }
 
 .calendarSection {
-  flex: 1;
   min-width: 320px;
-  padding-right: 1rem;
+  padding-right: 1.25rem;
   border-right: 1px solid var(--border);
 }
 
 .sectionTitle {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 700;
-  margin-bottom: 1.3rem;
-  letter-spacing: -0.03em;
+  margin-bottom: 1.15rem;
+  letter-spacing: -0.04em;
 }
 
 .calendarHeader {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-  gap: 1rem;
+  justify-content: space-between;
+  margin-bottom: 1.3rem;
+  gap: 0.8rem;
 }
 
 .monthName {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
-  min-width: 150px;
-  text-align: center;
+  letter-spacing: -0.02em;
 }
 
 .navBtn {
-  padding: 0.5rem;
-  border-radius: 999px;
+  padding: 0.55rem;
+  border-radius: 0.85rem;
   color: var(--primary);
-  background: var(--surface-soft);
-  transition: background 0.2s;
+  background: white;
+  border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: var(--shadow-sm);
 }
 
 .navBtn:hover:not(:disabled) {
-  background: rgba(0, 107, 255, 0.12);
-  color: var(--primary);
+  background: rgba(0, 107, 255, 0.05);
+  border-color: var(--primary);
 }
 
 .navBtn:disabled {
   color: var(--border);
   cursor: not-allowed;
+  box-shadow: none;
 }
 
 .weekDays {
@@ -61,43 +62,45 @@
   font-size: 0.72rem;
   font-weight: 700;
   color: var(--text-muted);
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.75rem;
   letter-spacing: 0.06em;
 }
 
 .weekDay {
-  padding: 0.5rem 0;
+  padding: 0.4rem 0;
 }
 
 .daysGrid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  row-gap: 0.45rem;
+  row-gap: 0.55rem;
 }
 
 .dayBtn {
-  height: 42px;
-  width: 42px;
+  height: 44px;
+  width: 44px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 999px;
+  border-radius: 0.95rem;
   font-weight: 600;
   color: var(--primary);
-  background: #eef5ff;
-  transition: all 0.2s;
+  background: white;
+  border: 1px solid rgba(0, 107, 255, 0.16);
+  box-shadow: var(--shadow-sm);
 }
 
 .dayBtn:hover:not(:disabled) {
-  background: rgba(0, 107, 255, 0.14);
-  color: var(--primary);
+  background: rgba(0, 107, 255, 0.05);
+  border-color: var(--primary);
 }
 
 .daySelected {
-  background: var(--primary);
-  color: white;
-  box-shadow: 0 10px 18px rgba(0, 107, 255, 0.2);
+  background: rgba(0, 107, 255, 0.08);
+  color: var(--primary);
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
 }
 
 .dayDisabled {
@@ -105,11 +108,13 @@
   color: var(--text-muted);
   font-weight: 400;
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: 0.55;
+  border-color: transparent;
+  box-shadow: none;
 }
 
 .timezone {
-  margin-top: 2rem;
+  margin-top: 1.8rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -118,14 +123,20 @@
 }
 
 .timeSection {
-  width: 286px;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  border-left: 1px solid var(--border);
+  padding-left: 1.5rem;
+}
+
+.timeSectionIdle {
+  justify-content: flex-start;
 }
 
 .selectedDateHeader {
-  font-size: 1.12rem;
-  margin-bottom: 1.4rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
   margin-top: 0.25rem;
   font-weight: 700;
   letter-spacing: -0.03em;
@@ -134,36 +145,35 @@
 .timeSlots {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.7rem;
   overflow-y: auto;
-  max-height: 400px;
+  max-height: 430px;
   padding-right: 0.5rem;
 }
 
-/* custom scrollbar */
 .timeSlots::-webkit-scrollbar {
   width: 6px;
 }
+
 .timeSlots::-webkit-scrollbar-thumb {
   background: var(--border);
   border-radius: 10px;
 }
 
 .timeSlotBtn {
-  padding: 0.95rem 1rem;
+  padding: 0.9rem 1rem;
   border: 1px solid var(--primary);
   color: var(--primary);
   background: white;
-  border-radius: 0.85rem;
+  border-radius: 0.95rem;
   font-weight: 600;
-  font-size: 1rem;
-  transition: all 0.2s;
+  font-size: 0.98rem;
   flex: 1;
   text-align: center;
 }
 
 .timeSlotBtn:hover {
-  background: rgba(0, 107, 255, 0.06);
+  background: rgba(0, 107, 255, 0.05);
 }
 
 .timeSlotRow {
@@ -172,31 +182,41 @@
 }
 
 .timeSlotBtnSelected {
-  background: var(--primary);
+  background: #0f172a;
   color: white;
+  border-color: #0f172a;
 }
 
 .nextBtn {
   min-width: 88px;
-  border-radius: 0.85rem;
-  background: #102a43;
+  border-radius: 0.95rem;
+  background: var(--primary);
   color: white;
   font-weight: 600;
-  padding: 0.95rem 1rem;
+  padding: 0.9rem 1rem;
+  box-shadow: 0 12px 22px rgba(0, 107, 255, 0.12);
 }
 
 .noSlots {
   color: var(--text-muted);
-  text-align: center;
-  padding: 2rem 0;
+  padding: 1rem 0;
+  line-height: 1.6;
 }
 
-/* Form Section */
+.timePlaceholder {
+  border: 1px dashed var(--border);
+  border-radius: 1rem;
+  background: var(--surface-soft);
+  color: var(--text-muted);
+  padding: 1rem;
+  line-height: 1.6;
+}
+
 .formContainer {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  max-width: 460px;
+  max-width: 480px;
 }
 
 .backBtn {
@@ -206,9 +226,9 @@
   color: var(--primary);
   font-weight: 600;
   width: fit-content;
-  padding: 0.5rem;
+  padding: 0.5rem 0.55rem;
   margin-left: -0.5rem;
-  border-radius: var(--radius-sm);
+  border-radius: 0.8rem;
 }
 
 .backBtn:hover {
@@ -216,9 +236,9 @@
 }
 
 .formTitle {
-  font-size: 1.5rem;
+  font-size: 1.45rem;
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.05em;
 }
 
 .selectedSummary {
@@ -227,8 +247,8 @@
   gap: 0.7rem;
   border: 1px solid var(--border);
   border-radius: 1rem;
-  background: var(--surface-soft);
-  padding: 1rem;
+  background: linear-gradient(180deg, #ffffff 0%, #fafcff 100%);
+  padding: 1rem 1.05rem;
 }
 
 .formNotice {
@@ -279,7 +299,7 @@
 }
 
 .input {
-  padding: 0.9rem 1rem;
+  padding: 0.9rem 0.95rem;
   border: 1px solid var(--border);
   border-radius: 0.9rem;
   font-size: 1rem;
@@ -293,18 +313,18 @@
 }
 
 .submitBtn {
-  padding: 1rem;
+  padding: 0.95rem 1rem;
   background: var(--primary);
   color: white;
-  border-radius: 999px;
+  border-radius: 0.95rem;
   font-weight: 600;
   font-size: 1rem;
   margin-top: 0.5rem;
-  transition: opacity 0.2s ease;
+  box-shadow: 0 12px 22px rgba(0, 107, 255, 0.12);
 }
 
 .submitBtn:hover {
-  opacity: 0.9;
+  opacity: 0.92;
 }
 
 .submitBtn:disabled {
@@ -312,20 +332,19 @@
   cursor: not-allowed;
 }
 
-/* Confirmation Section */
 .confirmation {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 2.5rem 0;
+  padding: 2.5rem 0 1rem;
 }
 
 .avatarLarge {
   width: 64px;
   height: 64px;
   border-radius: 1.2rem;
-  background: var(--primary);
+  background: linear-gradient(180deg, #1677ff 0%, var(--primary) 100%);
   color: white;
   display: flex;
   align-items: center;
@@ -352,10 +371,10 @@
   gap: 1rem;
   align-items: flex-start;
   text-align: left;
-  background: #fdfdfd;
+  background: linear-gradient(180deg, #ffffff 0%, #fafcff 100%);
   border: 1px solid var(--border);
   padding: 1.5rem;
-  border-radius: 1.2rem;
+  border-radius: 1.15rem;
   width: 100%;
   max-width: 400px;
 }
@@ -375,7 +394,7 @@
 
 @media (max-width: 768px) {
   .calendarLayout {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 1rem;
   }
 
@@ -394,6 +413,10 @@
   .timeSection {
     width: 100%;
     margin-top: 0.5rem;
+    border-left: none;
+    padding-left: 0;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
   }
 
   .timeSlotRow {

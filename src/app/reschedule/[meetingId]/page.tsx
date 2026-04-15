@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import BookingFlow from "@/app/[slug]/BookingFlow";
 import styles from "@/app/[slug]/page.module.css";
 import { ArrowRight, Clock, Globe, Video } from "lucide-react";
+import { getMeetingLocationSummary } from "@/lib/meeting-location";
 
 type PageProps = {
   params: Promise<{ meetingId: string }>;
@@ -94,7 +95,7 @@ export default async function ReschedulePage({ params }: PageProps) {
               <Globe size={16} /> {schedule.timeZone}
             </div>
             <div className={styles.eventMeta}>
-              <Video size={16} /> Web conferencing details provided upon confirmation.
+              <Video size={16} /> {getMeetingLocationSummary(meeting.eventType.meetingLocationType, meeting.eventType.meetingLocationValue)}
             </div>
           </div>
           <div className={styles.rightPanel}>

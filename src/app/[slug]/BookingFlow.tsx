@@ -1,17 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay, isBefore, startOfDay, addMinutes } from "date-fns";
 import { ChevronLeft, ChevronRight, Globe, ArrowLeft, Clock, Video } from "lucide-react";
 import styles from "./BookingFlow.module.css";
 import { bookMeeting } from "./actions";
 import { getAvailableSlotsForDate } from "@/lib/scheduling";
+import { getMeetingLocationSummary } from "@/lib/meeting-location";
 
 type BookingFlowProps = {
   eventType: {
     id: string;
     title: string;
     duration: number;
+    meetingLocationType: string;
+    meetingLocationValue: string | null;
     bufferBeforeMinutes: number;
     bufferAfterMinutes: number;
   };
@@ -123,6 +126,10 @@ export default function BookingFlow({ eventType, schedule, meetings, inviteeQues
     }
   };
 
+  useEffect(() => {
+    setSelectedTime(null);
+  }, [selectedDate]);
+
   if (step === "confirmed") {
     return (
       <div className={styles.confirmation}>
@@ -143,7 +150,7 @@ export default function BookingFlow({ eventType, schedule, meetings, inviteeQues
             <Globe size={16} /> {schedule.timeZone}
           </div>
           <div className={styles.confTime}>
-            <Video size={16} /> Web conferencing details to follow
+            <Video size={16} /> {getMeetingLocationSummary(eventType.meetingLocationType, eventType.meetingLocationValue)}
           </div>
         </div>
       </div>
@@ -166,6 +173,10 @@ export default function BookingFlow({ eventType, schedule, meetings, inviteeQues
           <div className={styles.summaryMeta}>
             <Globe size={16} />
             {schedule.timeZone}
+          </div>
+          <div className={styles.summaryMeta}>
+            <Video size={16} />
+            {getMeetingLocationSummary(eventType.meetingLocationType, eventType.meetingLocationValue)}
           </div>
         </div>
         {feedback && <div className={styles.formNotice}>{feedback}</div>}
@@ -258,11 +269,11 @@ export default function BookingFlow({ eventType, schedule, meetings, inviteeQues
         </div>
       </div>
 
-      {selectedDate && (
-        <div className={styles.timeSection}>
-          <div className={styles.selectedDateHeader}>
-            {format(selectedDate, "EEEE, MMMM d")}
-          </div>
+      <div className={`${styles.timeSection} ${!selectedDate ? styles.timeSectionIdle : ""}`}>
+        <div className={styles.selectedDateHeader}>
+          {selectedDate ? format(selectedDate, "EEEE, MMMM d") : "Available times"}
+        </div>
+        {selectedDate ? (
           <div className={styles.timeSlots}>
             {availableSlots.length > 0 ? availableSlots.map(slot => {
               const isSelected = selectedTime ? slot.getTime() === selectedTime.getTime() : false;
@@ -282,11 +293,15 @@ export default function BookingFlow({ eventType, schedule, meetings, inviteeQues
                 </div>
               );
             }) : (
-              <div className={styles.noSlots}>No times available</div>
+              <div className={styles.noSlots}>No times available for this day.</div>
             )}
           </div>
-        </div>
-      )}
+        ) : (
+          <div className={styles.timePlaceholder}>
+            Select a highlighted date to see the times that are still open.
+          </div>
+        )}
+      </div>
     </div>
   );
 }

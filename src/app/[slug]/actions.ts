@@ -1,6 +1,7 @@
 "use server";
 
 import { sendBookingEmails } from "@/lib/email";
+import { getMeetingLocationSummary } from "@/lib/meeting-location";
 import { prisma } from "@/lib/prisma";
 import { MEETING_STATUS } from "@/lib/meeting-status";
 import { doesBufferedMeetingOverlap } from "@/lib/scheduling";
@@ -44,8 +45,10 @@ export async function bookMeeting(data: {
         startTime: Date;
         endTime: Date;
         timeZone: string;
+        location: string;
       }
     | null = null;
+  let publicBookingPath: string | null = null;
 
   try {
     await prisma.$transaction(async (tx) => {
@@ -110,6 +113,8 @@ export async function bookMeeting(data: {
           hostNameSnapshot: eventType.user.name,
           eventTitleSnapshot: eventType.title,
           scheduleTimeZone: schedule?.timeZone ?? eventType.user.timeZone,
+          meetingLocationTypeSnapshot: eventType.meetingLocationType,
+          meetingLocationValueSnapshot: eventType.meetingLocationValue,
           durationMinutes: eventType.duration,
           bufferBeforeMinutes: eventType.bufferBeforeMinutes,
           bufferAfterMinutes: eventType.bufferAfterMinutes,
@@ -150,7 +155,9 @@ export async function bookMeeting(data: {
         startTime: data.startTime,
         endTime: data.endTime,
         timeZone: schedule?.timeZone ?? eventType.user.timeZone,
+        location: getMeetingLocationSummary(eventType.meetingLocationType, eventType.meetingLocationValue),
       };
+      publicBookingPath = `/${eventType.urlSlug}`;
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Failed to book meeting.";
@@ -171,5 +178,8 @@ export async function bookMeeting(data: {
 
   revalidatePath("/meetings");
   revalidatePath("/dashboard");
+  if (publicBookingPath) {
+    revalidatePath(publicBookingPath);
+  }
   return { success: true, warning };
 }

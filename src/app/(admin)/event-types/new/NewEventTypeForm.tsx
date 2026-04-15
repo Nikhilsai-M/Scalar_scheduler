@@ -4,6 +4,12 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 import { createEventType } from "./actions";
+import {
+  getMeetingLocationHelperText,
+  getMeetingLocationPlaceholder,
+  MEETING_LOCATION_OPTIONS,
+  type MeetingLocationType,
+} from "@/lib/meeting-location";
 
 type ScheduleOption = {
   id: string;
@@ -25,6 +31,8 @@ export default function NewEventTypeForm({ schedules }: { schedules: ScheduleOpt
   const [description, setDescription] = useState("");
   const [duration, setDuration] = useState(30);
   const [scheduleId, setScheduleId] = useState(schedules[0]?.id ?? "");
+  const [meetingLocationType, setMeetingLocationType] = useState<MeetingLocationType>("GOOGLE_MEET");
+  const [meetingLocationValue, setMeetingLocationValue] = useState("");
   const [bufferBeforeMinutes, setBufferBeforeMinutes] = useState(0);
   const [bufferAfterMinutes, setBufferAfterMinutes] = useState(0);
   const [inviteeQuestions, setInviteeQuestions] = useState<InviteeQuestionDraft[]>([]);
@@ -42,6 +50,8 @@ export default function NewEventTypeForm({ schedules }: { schedules: ScheduleOpt
         description,
         duration,
         scheduleId,
+        meetingLocationType,
+        meetingLocationValue,
         bufferBeforeMinutes,
         bufferAfterMinutes,
         inviteeQuestions,
@@ -128,6 +138,35 @@ export default function NewEventTypeForm({ schedules }: { schedules: ScheduleOpt
 
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
+              <label className={styles.label}>Meeting location *</label>
+              <select
+                className={styles.select}
+                value={meetingLocationType}
+                onChange={(event) => setMeetingLocationType(event.target.value as MeetingLocationType)}
+              >
+                {MEETING_LOCATION_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Location details</label>
+              <input
+                type="text"
+                className={styles.input}
+                value={meetingLocationValue}
+                onChange={(event) => setMeetingLocationValue(event.target.value)}
+                placeholder={getMeetingLocationPlaceholder(meetingLocationType)}
+              />
+              <p className={styles.sectionHint}>{getMeetingLocationHelperText(meetingLocationType)}</p>
+            </div>
+          </div>
+
+          <div className={styles.formRow}>
+            <div className={styles.formGroup}>
               <label className={styles.label}>Buffer before (minutes)</label>
               <input type="number" min={0} className={styles.input} value={bufferBeforeMinutes} onChange={(event) => setBufferBeforeMinutes(Number(event.target.value))} />
             </div>
@@ -192,6 +231,10 @@ export default function NewEventTypeForm({ schedules }: { schedules: ScheduleOpt
           <span className={styles.previewEyebrow}>Live preview</span>
           <h2 className={styles.previewTitle}>{title || "Your event title"}</h2>
           <p className={styles.previewMeta}>{duration} min, one-on-one</p>
+          <p className={styles.previewMeta}>
+            {MEETING_LOCATION_OPTIONS.find((option) => option.value === meetingLocationType)?.label}
+            {meetingLocationValue ? ` - ${meetingLocationValue}` : ""}
+          </p>
           <p className={styles.previewMeta}>Buffers: {bufferBeforeMinutes}m before, {bufferAfterMinutes}m after</p>
           <div className={styles.previewLink}>/{urlSlug || "your-event-link"}</div>
           <p className={styles.previewDescription}>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { MEETING_STATUS } from "@/lib/meeting-status";
+import { getMeetingLocationSummary } from "@/lib/meeting-location";
 import styles from "./page.module.css";
 import { cancelMeeting } from "./actions";
 import { Video } from "lucide-react";
@@ -17,7 +18,14 @@ type Meeting = {
   endTime: Date;
   status: string;
   eventTitleSnapshot: string | null;
-  eventType: { title: string; duration: number; };
+  meetingLocationTypeSnapshot: string | null;
+  meetingLocationValueSnapshot: string | null;
+  eventType: {
+    title: string;
+    duration: number;
+    meetingLocationType: string;
+    meetingLocationValue: string | null;
+  };
 };
 
 export default function MeetingsList({ initialMeetings }: { initialMeetings: Meeting[] }) {
@@ -128,7 +136,13 @@ export default function MeetingsList({ initialMeetings }: { initialMeetings: Mee
                   <div className={styles.tag}>
                     <div className={styles.dot}></div> {meeting.eventTitleSnapshot || meeting.eventType.title}
                   </div>
-                  <div className={styles.metaLabel}><Video size={14}/> Web conferencing details to follow</div>
+                  <div className={styles.metaLabel}>
+                    <Video size={14}/>
+                    {getMeetingLocationSummary(
+                      meeting.meetingLocationTypeSnapshot ?? meeting.eventType.meetingLocationType,
+                      meeting.meetingLocationValueSnapshot ?? meeting.eventType.meetingLocationValue,
+                    )}
+                  </div>
                 </div>
               </div>
 

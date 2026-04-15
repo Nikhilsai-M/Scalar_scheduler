@@ -6,6 +6,8 @@ type PageProps = {
   params: Promise<{ id: string }>;
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function EditEventTypePage({ params }: PageProps) {
   const { id } = await params;
 
@@ -18,6 +20,8 @@ export default async function EditEventTypePage({ params }: PageProps) {
       description: true,
       duration: true,
       scheduleId: true,
+      meetingLocationType: true,
+      meetingLocationValue: true,
       bufferBeforeMinutes: true,
       bufferAfterMinutes: true,
       userId: true,

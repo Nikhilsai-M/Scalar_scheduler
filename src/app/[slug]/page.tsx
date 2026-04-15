@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import BookingFlow from "./BookingFlow";
 import styles from "./page.module.css";
 import { Clock, Video, Globe, ArrowRight } from "lucide-react";
+import { getMeetingLocationSummary } from "@/lib/meeting-location";
 
 export default async function BookingPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -84,7 +85,7 @@ export default async function BookingPage({ params }: { params: Promise<{ slug: 
               <Globe size={16} /> {schedule.timeZone}
             </div>
             <div className={styles.eventMeta}>
-              <Video size={16} /> Web conferencing details provided upon confirmation.
+              <Video size={16} /> {getMeetingLocationSummary(eventType.meetingLocationType, eventType.meetingLocationValue)}
             </div>
             {eventType.description && (
               <div className={styles.description}>

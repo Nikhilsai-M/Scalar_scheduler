@@ -1,26 +1,26 @@
 :root {
-  --background: #f8fafc;
-  --foreground: #102a43;
+  --background: #f5f7fb;
+  --foreground: #0f172a;
   --primary: #006bff;
-  --primary-hover: #0052cc;
-  --border: #dbe5f0;
-  --border-strong: #c5d4e6;
-  --text-muted: #5b7083;
+  --primary-hover: #0059d6;
+  --border: #dbe4ee;
+  --border-strong: #c2cfdd;
+  --text-muted: #5f6f85;
   --surface: #ffffff;
   --danger: #d6455d;
-  --surface-soft: #f4f8fc;
+  --surface-soft: #f8fbff;
   --surface-alt: #eef4fb;
   --accent: #14b8a6;
   
-  --shadow-sm: 0 8px 20px rgba(15, 35, 62, 0.05);
-  --shadow-md: 0 18px 44px rgba(15, 35, 62, 0.09);
-  --shadow-lg: 0 30px 80px rgba(15, 35, 62, 0.14);
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04), 0 10px 30px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 18px 40px rgba(15, 23, 42, 0.07);
+  --shadow-lg: 0 30px 70px rgba(15, 23, 42, 0.1);
   
-  --radius-sm: 0.5rem;
-  --radius-md: 1rem;
+  --radius-sm: 0.75rem;
+  --radius-md: 1.125rem;
   --radius-lg: 1.5rem;
 
-  --font-inter: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-inter: "Aptos", "Segoe UI Variable", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,8 +38,8 @@
 body {
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, #eef5ff 0%, rgba(238, 245, 255, 0) 38%),
-    radial-gradient(circle at top right, rgba(186, 230, 253, 0.45) 0%, rgba(186, 230, 253, 0) 28%),
+    radial-gradient(circle at top left, rgba(221, 235, 255, 0.75) 0%, rgba(221, 235, 255, 0) 34%),
+    linear-gradient(180deg, #fafcff 0%, var(--background) 30%, #f2f6fb 100%),
     var(--background);
   color: var(--foreground);
   font-family: var(--font-inter);
@@ -47,21 +47,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.45) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.18), transparent 55%);
-}
-
 a {
   color: inherit;
   text-decoration: none;
+  transition: color 0.18s ease, background-color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
 }
 
 button {
@@ -69,12 +58,23 @@ button {
   border: none;
   background: none;
   font-family: inherit;
+  transition: color 0.18s ease, background-color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
 }
 
 input,
 textarea,
 select {
   font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: rgba(0, 107, 255, 0.14);
+}
+
+:focus-visible {
+  outline: 2px solid rgba(0, 107, 255, 0.28);
+  outline-offset: 2px;
 }
 
 .main-wrapper {

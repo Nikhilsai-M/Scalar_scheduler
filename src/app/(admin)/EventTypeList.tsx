@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { getMeetingLocationSummary } from "@/lib/meeting-location";
 import styles from "./page.module.css";
 import { Clock, Plus, Pencil, Trash2, ArrowUpRight, Copy, Share2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -12,6 +13,8 @@ type EventType = {
   duration: number;
   urlSlug: string;
   description: string | null;
+  meetingLocationType: string;
+  meetingLocationValue: string | null;
 };
 
 export default function EventTypeList({ eventTypes: initialEventTypes }: { eventTypes: EventType[] }) {
@@ -140,6 +143,9 @@ export default function EventTypeList({ eventTypes: initialEventTypes }: { event
                 <h3 className={styles.cardTitle}>{event.title}</h3>
                 <div className={styles.cardMeta}>
                   <Clock size={16} /> {event.duration} mins
+                </div>
+                <div className={styles.cardMeta}>
+                  {getMeetingLocationSummary(event.meetingLocationType, event.meetingLocationValue)}
                 </div>
                 <p className={styles.cardDescription}>
                   {event.description || "Share this event page so invitees can pick a time that works for both of you."}

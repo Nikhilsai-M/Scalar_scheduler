@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import NewEventTypeForm from "./NewEventTypeForm";
 
+export const dynamic = "force-dynamic";
+
 export default async function NewEventTypePage() {
   const defaultUser = await prisma.user.findFirst();
   if (!defaultUser) {
