@@ -1,0 +1,359 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.title {
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.04em;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.summaryBar {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.summaryItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 1rem 1.1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-radius: 1rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border);
+  background: white;
+}
+
+.noticeSuccess {
+  border-color: #b7e4d7;
+  background: #f5fcf8;
+}
+
+.noticeError {
+  border-color: #f1c7cd;
+  background: #fff7f8;
+}
+
+.noticeDismiss {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.confirmCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  background: white;
+  padding: 1rem 1.1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.confirmCard h2 {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.confirmCard p {
+  color: var(--text-muted);
+}
+
+.confirmActions {
+  display: flex;
+  gap: 0.7rem;
+}
+
+.confirmSecondary,
+.confirmDanger {
+  border-radius: 999px;
+  padding: 0.7rem 1rem;
+  font-weight: 600;
+}
+
+.confirmSecondary {
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  background: white;
+}
+
+.confirmDanger {
+  background: var(--danger);
+  color: white;
+}
+
+.summaryItem strong {
+  font-size: 1.5rem;
+  letter-spacing: -0.05em;
+}
+
+.summaryLabel {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.newButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary);
+  color: white;
+  border-radius: 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.newButton:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: #dce9f8;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 1.5rem 0.5rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.38rem 0.72rem;
+  background: rgba(20, 184, 166, 0.12);
+  color: #0f766e;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.actionBtn {
+  color: var(--text-muted);
+  box-shadow: none;
+  border-radius: 50%;
+  padding: 0.25rem;
+  transition: background 0.2s;
+}
+
+.actionBtn:hover {
+  background: var(--border);
+  color: var(--danger);
+}
+
+.editActionBtn:hover {
+  color: var(--foreground);
+}
+
+.cardBody {
+  padding: 0.5rem 1.5rem 1.5rem;
+  flex: 1;
+}
+
+.cardTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+  letter-spacing: -0.02em;
+}
+
+.cardMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.cardDescription {
+  margin-top: 0.85rem;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.cardUrl {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 500;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  width: fit-content;
+}
+
+.cardFooter {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.footerActions {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--primary);
+  background: white;
+  border: 1px solid var(--border);
+  font-weight: 500;
+  font-size: 0.82rem;
+  transition: background-color 0.2s, border-color 0.2s;
+  padding: 0.52rem 0.78rem;
+  border-radius: 999px;
+}
+
+.secondaryButton:hover {
+  background: var(--surface-soft);
+  border-color: #bfd2e8;
+}
+
+.linkButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  background: var(--primary);
+  font-weight: 500;
+  font-size: 0.86rem;
+  transition: opacity 0.2s, transform 0.2s;
+  padding: 0.58rem 0.95rem;
+  border-radius: 999px;
+}
+
+.linkButton:hover {
+  opacity: 0.93;
+  transform: translateY(-1px);
+}
+
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-md);
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .newButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .summaryBar {
+    grid-template-columns: 1fr;
+  }
+
+  .notice,
+  .confirmCard {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .confirmActions {
+    width: 100%;
+  }
+
+  .cardHeader,
+  .cardBody,
+  .cardFooter {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .footerActions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}

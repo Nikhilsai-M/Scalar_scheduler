@@ -1,64 +1,138 @@
-import Image from "next/image";
+import Link from "next/link";
+import { prisma } from "@/lib/prisma";
+import { CalendarCheck2, Clock3, Layers3, ArrowRight, Sparkles, ShieldCheck } from "lucide-react";
+import styles from "./page.module.css";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function HomePage() {
+  const defaultUser = await prisma.user.findFirst();
+  const eventTypes = defaultUser
+    ? await prisma.eventType.findMany({
+        where: { userId: defaultUser.id, isActive: true },
+        orderBy: { createdAt: "asc" },
+        take: 3,
+      })
+    : [];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className={styles.page}>
+      <header className={styles.header}>
+        <Link href="/" className={styles.logoGroup}>
+          <span className={styles.logo}>C</span>
+          <span className={styles.logoText}>Scalar Scheduler</span>
+        </Link>
+        <div className={styles.headerActions}>
+          <Link href="/dashboard" className={styles.secondaryLink}>
+            Dashboard
+          </Link>
+          <Link href="/event-types" className={styles.primaryLink}>
+            Open workspace
+          </Link>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+      </header>
+
+      <main className={styles.main}>
+        <section className={styles.hero}>
+          <div className={styles.heroCopy}>
+            <span className={styles.eyebrow}>Scheduling for modern teams</span>
+            <h1 className={styles.heroTitle}>A polished booking experience for hosts and invitees.</h1>
+            <p className={styles.heroText}>
+              Scalar Scheduler helps you publish booking pages, manage weekly availability, and keep meetings organized
+              without the friction of back-and-forth email.
+            </p>
+            <div className={styles.heroActions}>
+              <Link href="/dashboard" className={styles.primaryCta}>
+                Go to dashboard <ArrowRight size={16} />
+              </Link>
+              {eventTypes[0] ? (
+                <Link href={`/${eventTypes[0].urlSlug}`} className={styles.secondaryCta}>
+                  View sample booking page
+                </Link>
+              ) : (
+                <Link href="/event-types/new" className={styles.secondaryCta}>
+                  Create first event type
+                </Link>
+              )}
+            </div>
+          </div>
+
+          <div className={styles.previewCard}>
+            <div className={styles.previewTop}>
+              <span className={styles.previewBadge}>Live workspace</span>
+              <span className={styles.previewMeta}>Professional scheduling flow</span>
+            </div>
+            <div className={styles.previewPanel}>
+              <div className={styles.previewStat}>
+                <Layers3 size={18} />
+                <div>
+                  <strong>{eventTypes.length || 3} event types</strong>
+                  <p>Reusable booking pages with clean links</p>
+                </div>
+              </div>
+              <div className={styles.previewStat}>
+                <Clock3 size={18} />
+                <div>
+                  <strong>Weekly availability</strong>
+                  <p>Timezone-aware hours and slot generation</p>
+                </div>
+              </div>
+              <div className={styles.previewStat}>
+                <CalendarCheck2 size={18} />
+                <div>
+                  <strong>Real confirmations</strong>
+                  <p>Booking and cancellation emails from your workflow</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.featureSection}>
+          <div className={styles.featureIntro}>
+            <span className={styles.sectionEyebrow}>Why it works</span>
+            <h2>Built like a real scheduling product, not just a form.</h2>
+          </div>
+          <div className={styles.featureGrid}>
+            <article className={styles.featureCard}>
+              <Sparkles size={18} />
+              <h3>Clean booking journey</h3>
+              <p>Invitees choose a date, select a time, and confirm in a flow designed to feel calm and clear.</p>
+            </article>
+            <article className={styles.featureCard}>
+              <ShieldCheck size={18} />
+              <h3>Safer scheduling logic</h3>
+              <p>Double-booking checks, validated availability windows, and meeting snapshots protect your records.</p>
+            </article>
+            <article className={styles.featureCard}>
+              <CalendarCheck2 size={18} />
+              <h3>Operational workspace</h3>
+              <p>Separate admin screens for event types, availability, and meetings make the product easier to manage.</p>
+            </article>
+          </div>
+        </section>
+
+        <section className={styles.linksSection}>
+          <div className={styles.linksHeader}>
+            <h2>Sample booking pages</h2>
+            <p>Use these public links to preview the invitee experience.</p>
+          </div>
+          <div className={styles.linkList}>
+            {eventTypes.length > 0 ? (
+              eventTypes.map((eventType) => (
+                <Link key={eventType.id} href={`/${eventType.urlSlug}`} className={styles.linkCard}>
+                  <div>
+                    <strong>{eventType.title}</strong>
+                    <p>/{eventType.urlSlug}</p>
+                  </div>
+                  <span>{eventType.duration} min</span>
+                </Link>
+              ))
+            ) : (
+              <div className={styles.emptyState}>Create an event type in the dashboard to generate public booking links.</div>
+            )}
+          </div>
+        </section>
       </main>
     </div>
   );

@@ -1,0 +1,463 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 800px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.headerActions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.title {
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-weight: 700;
+  margin-bottom: 0.45rem;
+  letter-spacing: -0.04em;
+}
+
+.subtitle {
+  color: var(--text-muted);
+}
+
+.summaryCard {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 1.3rem;
+  padding: 1.15rem 1.2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.summaryEyebrow {
+  display: inline-block;
+  color: var(--primary);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.summaryTitle {
+  font-size: 1.2rem;
+  letter-spacing: -0.03em;
+}
+
+.summaryText {
+  max-width: 360px;
+  color: var(--text-muted);
+}
+
+.notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-radius: 1rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border);
+  background: white;
+}
+
+.noticeSuccess {
+  border-color: #b7e4d7;
+  background: #f5fcf8;
+}
+
+.noticeError {
+  border-color: #f1c7cd;
+  background: #fff7f8;
+}
+
+.noticeDismiss {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.saveButton {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary);
+  color: white;
+  border-radius: 2rem;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.saveButton:hover {
+  opacity: 0.9;
+}
+
+.saveButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.secondaryAction {
+  padding: 0.75rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.scheduleTabs {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.scheduleTab {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 160px;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: white;
+  padding: 0.9rem 1rem;
+  text-align: left;
+}
+
+.scheduleTab small {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.scheduleTabActive {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 2rem;
+}
+
+.scheduleMetaGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 320px);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fieldLabel {
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.textInput {
+  width: 100%;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 0.85rem;
+  background: white;
+}
+
+.checkboxLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.timezoneRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+.scheduleSection {
+  margin-top: 2rem;
+}
+
+.sectionHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.sectionHeading h3 {
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+}
+
+.sectionHeading p {
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.timeZoneLabelWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.timeZoneHint {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.timeZoneControls {
+  width: min(460px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.timeZoneSearch {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  background: white;
+}
+
+.timeZoneSelect {
+  min-width: 260px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  background: white;
+}
+
+.scheduleList {
+  display: flex;
+  flex-direction: column;
+}
+
+.dayRow {
+  display: flex;
+  align-items: flex-start;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid var(--border);
+  gap: 0.75rem;
+}
+
+.dayRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.dayToggle {
+  width: 160px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.checkbox {
+  width: 1.25rem;
+  height: 1.25rem;
+  cursor: pointer;
+  accent-color: var(--primary);
+}
+
+.dayName {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.intervals {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.unavailable {
+  color: var(--text-muted);
+  font-weight: 400;
+  padding: 0.6rem 0.9rem;
+  background: var(--surface-soft);
+  border-radius: 999px;
+  width: fit-content;
+}
+
+.intervalInputs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.timeInput {
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.8rem;
+  font-family: inherit;
+  width: 120px;
+  background: var(--surface-soft);
+}
+
+.iconBtn {
+  color: var(--text-muted);
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background 0.2s;
+  display: flex;
+}
+
+.iconBtn:hover {
+  background: var(--border);
+  color: var(--foreground);
+}
+
+.dayActions {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: 1rem;
+}
+
+.overrideList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.overrideRow {
+  display: grid;
+  grid-template-columns: minmax(180px, 220px) minmax(180px, 220px) minmax(120px, 140px) minmax(120px, 140px) auto;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.emptyInline {
+  border: 1px dashed var(--border);
+  border-radius: 1rem;
+  background: var(--surface-soft);
+  color: var(--text-muted);
+  padding: 1rem;
+}
+
+.deleteRow {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.deleteRow p {
+  color: var(--text-muted);
+}
+
+.deleteButton {
+  border-radius: 999px;
+  padding: 0.75rem 1rem;
+  background: #fff6f7;
+  color: var(--danger);
+  border: 1px solid #f1c7cd;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .headerActions {
+    flex-direction: column;
+  }
+
+  .saveButton {
+    width: 100%;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+
+  .summaryCard {
+    flex-direction: column;
+  }
+
+  .scheduleMetaGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .notice {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .timezoneRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .timeZoneControls {
+    width: 100%;
+  }
+
+  .timeZoneSelect {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .dayRow {
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .dayToggle {
+    width: 100%;
+  }
+
+  .intervalInputs {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .timeInput {
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .dayActions {
+    margin-left: 0;
+    align-self: flex-end;
+  }
+
+  .sectionHeading,
+  .deleteRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .overrideRow {
+    grid-template-columns: 1fr;
+  }
+}

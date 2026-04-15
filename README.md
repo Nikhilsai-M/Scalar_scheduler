@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Scalar Scheduler
 
-## Getting Started
+A full-stack scheduling platform inspired by Calendly's core UI and UX.
 
-First, run the development server:
+## Tech Stack
+
+- **Frontend:** Next.js 16 (App Router), React 19
+- **Backend:** Next.js Server Actions
+- **Database:** Prisma ORM with SQLite for local development, easily swappable to PostgreSQL
+- **Styling:** Vanilla CSS with CSS Modules
+- **Icons:** `lucide-react`
+- **Email:** SMTP via `nodemailer`
+- **Date Management:** `date-fns`
+
+## Features Implemented
+
+1. **Event Types Management**: Create, edit, delete, and share event types with unique public links.
+2. **Availability Settings**: Configure weekly working hours, multiple time ranges, and timezone.
+3. **Public Booking Flow**:
+   - Month calendar with available dates
+   - Dynamic time slot generation from saved availability
+   - Double-booking prevention
+   - Invitee name and email capture
+   - Booking confirmation state
+   - Real SMTP booking emails to the invitee and host inbox
+4. **Meetings Dashboard**:
+   - Upcoming and past meetings
+   - Cancellation flow
+   - Real SMTP cancellation emails to the invitee and host inbox
+
+## Setup Instructions
+
+### 1. Requirements
+
+- Node.js 18+
+- NPM
+
+### 2. Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
+DATABASE_URL="file:./dev.db"
+SMTP_HOST="smtp.gmail.com"
+SMTP_PORT="587"
+SMTP_SECURE="false"
+SMTP_USER="your-email@gmail.com"
+SMTP_PASS="your-app-password"
+MAIL_FROM="Scalar Scheduler <your-email@gmail.com>"
+MAIL_TO="your-email@gmail.com"
+```
+
+Notes:
+- `MAIL_TO` is optional. If omitted, host/admin notifications go to the host user email stored in the database.
+- For Gmail, use a Google App Password instead of your normal account password.
+- To use PostgreSQL later, change the Prisma datasource provider and replace `DATABASE_URL`.
+
+### 3. Install Dependencies
+
+```bash
+npm install
+```
+
+### 4. Database Initialization
+
+```bash
+npx prisma db push
+npx prisma generate
+node prisma/seed.js
+```
+
+### 5. Start Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Navigate to `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Email Flow
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- When someone books a meeting, the app sends:
+  - a confirmation email to the invitee
+  - a notification email to your inbox
+- When a meeting is canceled from the admin side, the app sends:
+  - a cancellation email to the invitee
+  - a cancellation update to your inbox
 
-## Learn More
+## Assumptions
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- A default user is treated as logged in for the admin side.
+- SMTP credentials are provided through environment variables.
+- SQLite is used locally for easy setup; PostgreSQL is the recommended production target.
